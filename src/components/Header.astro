@@ -1,6 +1,7 @@
 ---
 import { siteConfig } from '@config/site';
 import Logo from './Logo.astro';
+import { getBaseUrl, getFullPath, isHomePage } from '@utils/path';
 
 interface Props {
   isTransparent?: boolean;
@@ -10,8 +11,13 @@ const { isTransparent = false } = Astro.props;
 
 // 获取当前路径
 const currentPath = Astro.url.pathname;
-// 只有在首页时才允许透明效果
-const allowTransparent = currentPath === '/' && isTransparent;
+const allowTransparent = isHomePage(currentPath) && isTransparent;
+
+// 处理导航链接
+const navLinks = siteConfig.nav.map(item => ({
+  ...item,
+  href: getFullPath(item.href)
+}));
 ---
 
 <header 
@@ -33,7 +39,7 @@ const allowTransparent = currentPath === '/' && isTransparent;
     <div class="flex justify-between h-16 items-center">
       <div class="flex-shrink-0">
         <a 
-          href="/" 
+          href={getBaseUrl()} 
           class="transition-all duration-500 ease-in-out"
           :class="isScrolled || !allowTransparent ? 'text-gray-900 dark:text-white' : 'text-white'"
         >
@@ -42,7 +48,7 @@ const allowTransparent = currentPath === '/' && isTransparent;
       </div>
       
       <div class="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-8">
-        {siteConfig.nav.map((item) => (
+        {navLinks.map((item) => (
           <a
             href={item.href}
             class="px-3 py-2 rounded-md text-sm font-medium transition-all duration-500 ease-in-out"

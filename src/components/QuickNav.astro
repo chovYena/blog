@@ -1,22 +1,24 @@
 ---
+const baseUrl = import.meta.env.BASE_URL;
+
 const quickLinks = [
   {
     title: "最新文章",
     description: "查看最新发布的博客文章",
     icon: "📝",
-    href: "/blog"
+    href: `${baseUrl}blog`
   },
   {
     title: "技术分类",
     description: "按照技术主题浏览文章",
     icon: "🔧",
-    href: "/categories"
+    href: `${baseUrl}categories`
   },
   {
     title: "关于我",
     description: "了解更多关于我的信息",
     icon: "👋",
-    href: "/about"
+    href: `${baseUrl}about`
   }
 ];
 ---
