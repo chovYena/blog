@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="description" content="A blog built with Astro and Tailwind CSS"><meta name="viewport" content="width=device-width"><meta name="author" content="Yena"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v4.16.13"><title>JavaScript 开发技巧：提升代码质量的10个建议 - Yena</title><link rel="stylesheet" href="/blog/assets/about.C1jrQ8lr.css">
+<style>.giscus[data-astro-cid-qdzwzgpn]{width:100%;margin-top:2rem}.dark .giscus-frame[data-astro-cid-qdzwzgpn]{background-color:transparent}.prose pre{padding:1.5rem;border-radius:.5rem;overflow-x:auto}.prose code{background-color:#0000001a;padding:.2em .4em;border-radius:.25rem;font-size:.875em}.dark .prose code{background-color:#ffffff1a}.prose a{text-decoration:none}.prose a:hover{text-decoration:underline}
+</style><script type="module" src="/blog/assets/hoisted.BuKvBNNg.js"></script>
+<script type="module" src="/blog/assets/page.DfepQkps.js"></script></head> <body class="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300"> <header x-data="{
+    isScrolled: false,
+    allowTransparent: false,
+    checkScroll() {
+      this.isScrolled = window.pageYOffset > 60;
+    }
+  }" x-init="
+    checkScroll();
+    window.addEventListener('scroll', () => checkScroll());
+  " class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out" :class="isScrolled || !allowTransparent ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md' : 'bg-transparent'" data-astro-cid-3ef6ksr2> <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-astro-cid-3ef6ksr2> <div class="flex justify-between h-16 items-center" data-astro-cid-3ef6ksr2> <div class="flex-shrink-0" data-astro-cid-3ef6ksr2> <a href="/" class="transition-all duration-500 ease-in-out" :class="isScrolled || !allowTransparent ? 'text-gray-900 dark:text-white' : 'text-white'" data-astro-cid-3ef6ksr2> <svg class="h-8 sm:h-10" viewBox="0 0 200 60" fill="currentColor" data-astro-cid-tvrurpns> <!-- 背景装饰 --> <defs data-astro-cid-tvrurpns> <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%" data-astro-cid-tvrurpns> <stop offset="0%" style="stop-color:currentColor;stop-opacity:0.1" data-astro-cid-tvrurpns></stop> <stop offset="50%" style="stop-color:currentColor;stop-opacity:0.3" data-astro-cid-tvrurpns></stop> <stop offset="100%" style="stop-color:currentColor;stop-opacity:0.1" data-astro-cid-tvrurpns></stop> </linearGradient> </defs> <!-- 主文字 --> <text x="50%" y="50%" font-family="'Cormorant Garamond', serif" font-size="48" text-anchor="middle" dominant-baseline="middle" font-weight="600" letter-spacing="4" class="text-shadow" data-astro-cid-tvrurpns>
+Yena
+</text> <!-- 装饰线条 --> <path d="M45 45 C 80 45, 120 45, 155 45" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" class="decoration-line" data-astro-cid-tvrurpns></path> <!-- 装饰点 --> <circle cx="40" cy="45" r="2" class="decoration-dot" data-astro-cid-tvrurpns></circle> <circle cx="160" cy="45" r="2" class="decoration-dot" data-astro-cid-tvrurpns></circle> </svg>  </a> </div> <div class="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-8" data-astro-cid-3ef6ksr2> <a href="/" class="px-3 py-2 rounded-md text-sm font-medium transition-all duration-500 ease-in-out" :class="isScrolled || !allowTransparent ? 'text-gray-900 dark:text-gray-100 hover:text-gray-500 dark:hover:text-gray-300' : 'text-white hover:text-gray-200'" data-astro-cid-3ef6ksr2> 首页 </a><a href="/blog" class="px-3 py-2 rounded-md text-sm font-medium transition-all duration-500 ease-in-out" :class="isScrolled || !allowTransparent ? 'text-gray-900 dark:text-gray-100 hover:text-gray-500 dark:hover:text-gray-300' : 'text-white hover:text-gray-200'" data-astro-cid-3ef6ksr2> 博客 </a><a href="/about" class="px-3 py-2 rounded-md text-sm font-medium transition-all duration-500 ease-in-out" :class="isScrolled || !allowTransparent ? 'text-gray-900 dark:text-gray-100 hover:text-gray-500 dark:hover:text-gray-300' : 'text-white hover:text-gray-200'" data-astro-cid-3ef6ksr2> 关于 </a> <!-- 主题切换按钮 --> <button @click="$store.theme.toggle()" class="p-2 rounded-full transition-colors duration-200" :class="isScrolled || !allowTransparent ? 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800' : 'text-white hover:bg-white/10'" data-astro-cid-3ef6ksr2> <!-- 月亮图标 (亮色模式) --> <svg x-show="!$store.theme.isDark" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-3ef6ksr2> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-3ef6ksr2></path> </svg> <!-- 太阳图标 (暗色模式) --> <svg x-show="$store.theme.isDark" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-3ef6ksr2> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-3ef6ksr2></path> </svg> </button> </div> </div> </nav> </header>  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16" data-astro-cid-gysqo7gh> <header class="mb-8" data-astro-cid-gysqo7gh> <div class="flex items-center space-x-2 text-gray-500 dark:text-gray-400 mb-4" data-astro-cid-gysqo7gh> <time datetime="2024-03-15T00:00:00.000Z" data-astro-cid-gysqo7gh> 2024年3月15日 </time>  </div> <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4" data-astro-cid-gysqo7gh>JavaScript 开发技巧：提升代码质量的10个建议</h1> <p class="text-xl text-gray-500 dark:text-gray-400" data-astro-cid-gysqo7gh>探索JavaScript开发中的最佳实践，包括代码组织、性能优化和常见陷阱的避免方法。</p> <p class="mt-4 text-gray-500 dark:text-gray-400" data-astro-cid-gysqo7gh>作者：张三</p> </header> <div class="prose prose-lg max-w-none dark:prose-invert" data-astro-cid-gysqo7gh> <p>在现代Web开发中，JavaScript扮演着越来越重要的角色。如何写出高质量、可维护的JavaScript代码是每个开发者都需要思考的问题。本文将分享10个实用的开发技巧，帮助你提升代码质量。</p>
+<h2 id="1-使用有意义的变量命名">1. 使用有意义的变量命名</h2>
+<p>好的变量命名可以让代码自解释，提高可读性：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">// 不好的命名</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> d</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Date</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> n</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> d.</span><span style="color:#B392F0">getTime</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// 好的命名</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> currentDate</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Date</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> timestamp</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> currentDate.</span><span style="color:#B392F0">getTime</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span></code></pre>
+<h2 id="2-善用解构赋值">2. 善用解构赋值</h2>
+<p>解构赋值可以让代码更简洁、清晰：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">// 对象解构</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> user</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> { name: </span><span style="color:#9ECBFF">'John'</span><span style="color:#E1E4E8">, age: </span><span style="color:#79B8FF">30</span><span style="color:#E1E4E8"> };</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">name</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">age</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> user;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// 数组解构</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> coordinates</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">20</span><span style="color:#E1E4E8">];</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">x</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">y</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> coordinates;</span></span>
+<span class="line"></span></code></pre>
+<h2 id="3-使用箭头函数简化代码">3. 使用箭头函数简化代码</h2>
+<p>箭头函数不仅简洁，还能避免this绑定的问题：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">// 传统函数</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> numbers</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">];</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> doubled</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> numbers.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">num</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> num </span><span style="color:#F97583">*</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// 箭头函数</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> doubledArrow</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> numbers.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">num</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> num </span><span style="color:#F97583">*</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span></code></pre>
+<h2 id="4-合理使用异步await">4. 合理使用异步/await</h2>
+<p>async/await 让异步代码更易读和维护：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">// Promise链</span></span>
+<span class="line"><span style="color:#B392F0">fetchUser</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">  .</span><span style="color:#B392F0">then</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">user</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> fetchUserPosts</span><span style="color:#E1E4E8">(user.id))</span></span>
+<span class="line"><span style="color:#E1E4E8">  .</span><span style="color:#B392F0">then</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">posts</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(posts))</span></span>
+<span class="line"><span style="color:#E1E4E8">  .</span><span style="color:#B392F0">catch</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">error</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(error));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// async/await</span></span>
+<span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> getUserPosts</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  try</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> user</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> fetchUser</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> posts</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> fetchUserPosts</span><span style="color:#E1E4E8">(user.id);</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(posts);</span></span>
+<span class="line"><span style="color:#E1E4E8">  } </span><span style="color:#F97583">catch</span><span style="color:#E1E4E8"> (error) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(error);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<h2 id="5-使用可选链操作符">5. 使用可选链操作符</h2>
+<p>可选链操作符可以安全地访问嵌套对象属性：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> user</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  profile: {</span></span>
+<span class="line"><span style="color:#E1E4E8">    address: {</span></span>
+<span class="line"><span style="color:#E1E4E8">      street: </span><span style="color:#9ECBFF">'Main St'</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// 旧方式</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> street</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> user </span><span style="color:#F97583">&#x26;&#x26;</span><span style="color:#E1E4E8"> user.profile </span><span style="color:#F97583">&#x26;&#x26;</span><span style="color:#E1E4E8"> user.profile.address </span><span style="color:#F97583">&#x26;&#x26;</span><span style="color:#E1E4E8"> user.profile.address.street;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// 使用可选链</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> street</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> user?.profile?.address?.street;</span></span>
+<span class="line"></span></code></pre>
+<h2 id="6-模块化开发">6. 模块化开发</h2>
+<p>将代码分割成小的、可复用的模块：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">// config.js</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> const</span><span style="color:#79B8FF"> config</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  apiUrl: </span><span style="color:#9ECBFF">'https://api.example.com'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  timeout: </span><span style="color:#79B8FF">5000</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// api.js</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { config } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> './config'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> fetchData</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D">  // 使用配置</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<h2 id="7-使用常量管理魔法数字">7. 使用常量管理魔法数字</h2>
+<p>避免在代码中直接使用魔法数字：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">// 不好的做法</span></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> (status </span><span style="color:#F97583">===</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6A737D">  // 处理成功</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// 好的做法</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> STATUS</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  SUCCESS: </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  ERROR: </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  PENDING: </span><span style="color:#79B8FF">3</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> (status </span><span style="color:#F97583">===</span><span style="color:#79B8FF"> STATUS</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">SUCCESS</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6A737D">  // 处理成功</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<h2 id="8-合理使用类型检查">8. 合理使用类型检查</h2>
+<p>在关键位置添加类型检查可以提前发现问题：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> processUser</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">user</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">typeof</span><span style="color:#E1E4E8"> user </span><span style="color:#F97583">!==</span><span style="color:#9ECBFF"> 'object'</span><span style="color:#F97583"> ||</span><span style="color:#E1E4E8"> user </span><span style="color:#F97583">===</span><span style="color:#79B8FF"> null</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">    throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Invalid user object'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#6A737D">  // 处理用户数据</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<h2 id="9-使用现代数组方法">9. 使用现代数组方法</h2>
+<p>使用数组的函数式方法让代码更清晰：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> numbers</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">4</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">5</span><span style="color:#E1E4E8">];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// 过滤偶数并翻倍</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> result</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> numbers</span></span>
+<span class="line"><span style="color:#E1E4E8">  .</span><span style="color:#B392F0">filter</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">num</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> num </span><span style="color:#F97583">%</span><span style="color:#79B8FF"> 2</span><span style="color:#F97583"> ===</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">  .</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">num</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> num </span><span style="color:#F97583">*</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span></code></pre>
+<h2 id="10-编写单元测试">10. 编写单元测试</h2>
+<p>为关键功能编写测试可以提高代码质量：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#B392F0">describe</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'calculateTotal'</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">  test</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'should correctly calculate total with tax'</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    expect</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">calculateTotal</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">0.1</span><span style="color:#E1E4E8">)).</span><span style="color:#B392F0">toBe</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">110</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">  });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  test</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'should handle zero amount'</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    expect</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">calculateTotal</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">0.1</span><span style="color:#E1E4E8">)).</span><span style="color:#B392F0">toBe</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">  });</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span>
+<span class="line"></span></code></pre>
+<h2 id="总结">总结</h2>
+<p>这些技巧不仅能提高代码质量，还能让开发过程更加顺畅。记住，好的代码不仅要运行正确，还要易于理解和维护。在实际开发中，要根据具体场景灵活运用这些技巧。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/">MDN Web Docs</a></li>
+<li><a href="https://github.com/ryanmcdermott/clean-code-javascript">JavaScript Clean Code Guide</a></li>
+<li><a href="https://github.com/getify/You-Dont-Know-JS">You Don’t Know JS</a></li>
+</ul> </div> <div class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800" data-astro-cid-gysqo7gh> <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8" data-astro-cid-gysqo7gh>评论</h2> <div class="giscus" data-astro-cid-qdzwzgpn></div> <script>
+  function loadGiscus() {
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', 'chovYena/uni-vite-preset');
+    script.setAttribute('data-repo-id', 'R_kgDOKMV_qg');
+    script.setAttribute('data-category', 'Q&A');
+    script.setAttribute('data-category-id', 'DIC_kwDOKMV_qs4CkUrb');
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'top');
+    script.setAttribute('data-theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    script.setAttribute('data-lang', 'zh-CN');
+    script.setAttribute('data-loading', 'lazy');
+    script.crossOrigin = 'anonymous';
+    script.async = true;
+
+    const container = document.querySelector('.giscus');
+    if (container) {
+      container.innerHTML = '';
+      container.appendChild(script);
+    }
+  }
+
+  // 初始加载
+  loadGiscus();
+
+  // 监听主题变化
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === 'class') {
+        const isDark = document.documentElement.classList.contains('dark');
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (iframe) {
+          iframe.contentWindow.postMessage(
+            { giscus: { setConfig: { theme: isDark ? 'dark' : 'light' } } },
+            'https://giscus.app'
+          );
+        } else {
+          loadGiscus();
+        }
+      }
+    });
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
+</script>  </div> </article>  </main> <footer class="bg-white dark:bg-gray-900 mt-auto"> <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8"> <div class="mt-8 border-t border-gray-200 dark:border-gray-800 pt-8"> <div class="flex justify-center space-x-6 mb-4"> <a href="https://github.com/chovYena" class="text-gray-400 hover:text-gray-500 dark:text-gray-300 dark:hover:text-white transition-colors">
+GitHub
+</a> </div> <p class="text-center text-base text-gray-400 dark:text-gray-300">
+&copy; 2024 Yena. All rights reserved. </p> </div> </div> </footer>  </body></html> 
