@@ -7,8 +7,12 @@ import alpinejs from '@astrojs/alpinejs';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://chovYena.github.io',
+  site: 'https://chovyena.github.io',
   base: '/blog',
+  outDir: './dist',
+  build: {
+    assets: 'assets',
+  },
   integrations: [tailwind(), alpinejs()],
   vite: {
     resolve: {
