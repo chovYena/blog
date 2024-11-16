@@ -14,6 +14,7 @@ export default defineConfig({
     assets: 'assets',
   },
   integrations: [tailwind(), alpinejs()],
+  trailingSlash: 'always',
   vite: {
     resolve: {
       alias: {
