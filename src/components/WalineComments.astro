@@ -1,0 +1,29 @@
+---
+interface Props {
+  path: string;
+}
+
+const { path } = Astro.props;
+---
+
+<div id="waline"></div>
+
+<script>
+  import { init } from '@waline/client';
+  
+  init({
+    el: '#waline',
+    serverURL: 'YOUR_WALINE_SERVER_URL', // 你的 Waline 服务端地址
+    path: window.location.pathname,
+    lang: 'zh-CN',
+    dark: 'html.dark',  // 自动跟随系统主题
+    emoji: [
+      '//unpkg.com/@waline/emojis@1.1.0/weibo',
+      '//unpkg.com/@waline/emojis@1.1.0/bilibili'
+    ],
+    imageUploader: false, // 禁用图片上传
+    login: 'force',      // 强制登录
+  });
+</script>
+
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" /> 

@@ -1,0 +1,40 @@
+---
+const quickLinks = [
+  {
+    title: "最新文章",
+    description: "查看最新发布的博客文章",
+    icon: "📝",
+    href: "/blog"
+  },
+  {
+    title: "技术分类",
+    description: "按照技术主题浏览文章",
+    icon: "🔧",
+    href: "/categories"
+  },
+  {
+    title: "关于我",
+    description: "了解更多关于我的信息",
+    icon: "👋",
+    href: "/about"
+  }
+];
+---
+
+<div class="py-12 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {quickLinks.map((link) => (
+        <a href={link.href} class="relative group">
+          <div class="h-full flex flex-col bg-white rounded-lg shadow-sm transition-shadow duration-300 hover:shadow-md p-6">
+            <div class="text-4xl mb-4">{link.icon}</div>
+            <h3 class="text-xl font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
+              {link.title}
+            </h3>
+            <p class="mt-2 text-gray-500">{link.description}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,103 @@
+---
+interface Props {
+  pageTitle: string;
+  pageKey: string;
+}
+
+const { pageTitle, pageKey } = Astro.props;
+---
+
+<div id="artalk"></div>
+
+<link href="https://cdn.jsdelivr.net/npm/artalk@2.6.4/dist/Artalk.css" rel="stylesheet">
+<script is:inline src="https://cdn.jsdelivr.net/npm/artalk@2.6.4/dist/Artalk.js"></script>
+
+<script define:vars={{ pageTitle, pageKey }}>
+  // 检查当前主题
+  const isDark = document.documentElement.classList.contains('dark');
+
+  // 初始化 Artalk
+  const artalk = new Artalk({
+    el: '#artalk',
+    pageTitle: pageTitle,
+    pageKey: pageKey,
+    server: 'http://localhost:8080',  // 本地开发时使用
+    site: 'Yena Blog',
+    darkMode: isDark,
+    useBackendConf: false,  // 禁用后端配置
+    emoticons: false,  // 禁用表情包以提高稳定性
+    gravatar: {
+      mirror: 'https://gravatar.loli.net/avatar/'  // 使用更稳定的头像服务
+    },
+    // 添加错误处理
+    onerror: (err) => {
+      console.error('Artalk error:', err);
+      const container = document.querySelector('#artalk');
+      if (container) {
+        container.innerHTML = `
+          <div class="p-4 text-center text-gray-500 dark:text-gray-400">
+            评论系统加载失败，请稍后再试
+            <button onclick="window.location.reload()" class="ml-2 text-indigo-600 dark:text-sky-400 hover:underline">
+              重试
+            </button>
+          </div>
+        `;
+      }
+    }
+  });
+
+  // 监听主题变化
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === 'class') {
+        const isDark = document.documentElement.classList.contains('dark');
+        const artalkEl = document.querySelector('#artalk');
+        if (artalkEl) {
+          if (isDark) {
+            artalkEl.classList.add('artalk-dark-mode');
+          } else {
+            artalkEl.classList.remove('artalk-dark-mode');
+          }
+        }
+      }
+    });
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
+</script>
+
+<style>
+  #artalk {
+    margin-top: 2rem;
+  }
+
+  /* 暗色模式样式 */
+  :global(.dark) #artalk {
+    --at-color-bg: #1f2937;
+    --at-color-font: #e5e7eb;
+    --at-color-secondary: #9ca3af;
+    --at-color-meta: #6b7280;
+    --at-color-border: #374151;
+    --at-color-hover: #374151;
+  }
+
+  /* 错误状态样式 */
+  #artalk .error-message {
+    padding: 2rem;
+    text-align: center;
+    color: #6b7280;
+  }
+
+  #artalk .error-message button {
+    margin-left: 0.5rem;
+    color: #6366f1;
+    text-decoration: underline;
+  }
+
+  :global(.dark) #artalk .error-message button {
+    color: #38bdf8;
+  }
+</style> 

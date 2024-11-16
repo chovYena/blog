@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  currentPost: CollectionEntry<'blog'>;
+  allPosts: CollectionEntry<'blog'>[];
+}
+
+const { currentPost, allPosts } = Astro.props;
+
+// 简单的相关文章算法：根据分类和标签匹配
+const relatedPosts = allPosts
+  .filter(post => 
+    post.slug !== currentPost.slug && 
+    post.data.category === currentPost.data.category
+  )
+  .slice(0, 3);
+---
+
+{relatedPosts.length > 0 && (
+  <div class="mt-16">
+    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8">相关文章</h2>
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {relatedPosts.map(post => (
+        <a href={`/posts/${post.slug}`} class="group">
+          <article class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow duration-300">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-sky-400">
+              {post.data.title}
+            </h3>
+            {post.data.description && (
+              <p class="mt-2 text-gray-500 dark:text-gray-400 line-clamp-2">
+                {post.data.description}
+              </p>
+            )}
+          </article>
+        </a>
+      ))}
+    </div>
+  </div>
+)} 

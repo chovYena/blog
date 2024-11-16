@@ -1,0 +1,80 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { siteConfig } from '@config/site';
+
+// 获取 GitHub 个人信息
+const response = await fetch('https://api.github.com/users/chovYena');
+const githubProfile = await response.json();
+---
+
+<Layout title="关于我">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center mb-16">
+      <img 
+        src="https://github.com/chovYena.png" 
+        alt="头像" 
+        class="w-32 h-32 rounded-full mx-auto mb-6 object-cover shadow-lg"
+      />
+      <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">{siteConfig.author}</h1>
+      <p class="text-xl text-gray-500 dark:text-gray-300">{githubProfile.bio || siteConfig.description}</p>
+    </div>
+
+    <div class="prose prose-lg mx-auto dark:prose-invert">
+      {githubProfile.bio && (
+        <>
+          <h2 class="text-gray-900 dark:text-white">👋 关于我</h2>
+          <p class="text-gray-600 dark:text-gray-300">
+            {githubProfile.bio}
+          </p>
+        </>
+      )}
+
+      <h2 class="text-gray-900 dark:text-white">🚀 技术栈</h2>
+      <ul class="text-gray-600 dark:text-gray-300">
+        <li>前端：React, Vue, TypeScript</li>
+        <li>构建工具：Vite, Webpack</li>
+        <li>静态站点：Astro, Next.js</li>
+        <li>CSS：Tailwind CSS, SCSS</li>
+      </ul>
+
+      <h2 class="text-gray-900 dark:text-white">📫 联系我</h2>
+      <p class="text-gray-600 dark:text-gray-300">
+        你可以通过以下方式找到我：
+      </p>
+      <ul class="text-gray-600 dark:text-gray-300">
+        <li>GitHub: <a href={githubProfile.html_url} class="text-indigo-600 dark:text-sky-400 hover:underline">GitHub</a></li>
+        {githubProfile.email && (
+          <li>Email: <a href={`mailto:${githubProfile.email}`} class="text-indigo-600 dark:text-sky-400 hover:underline">{githubProfile.email}</a></li>
+        )}
+        {githubProfile.location && (
+          <li>Location: <span>{githubProfile.location}</span></li>
+        )}
+      </ul>
+
+      {githubProfile.public_repos > 0 && (
+        <div class="mt-8">
+          <h2 class="text-gray-900 dark:text-white">📊 GitHub 统计</h2>
+          <ul class="text-gray-600 dark:text-gray-300">
+            <li>公开仓库：{githubProfile.public_repos}</li>
+            <li>Followers：{githubProfile.followers}</li>
+            <li>Following：{githubProfile.following}</li>
+          </ul>
+        </div>
+      )}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .prose {
+    max-width: 65ch;
+  }
+  
+  .prose a {
+    text-decoration: none;
+  }
+  
+  .prose a:hover {
+    text-decoration: underline;
+  }
+</style> 

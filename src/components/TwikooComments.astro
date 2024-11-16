@@ -1,0 +1,15 @@
+---
+---
+
+<div id="twikoo"></div>
+
+<script>
+  import twikoo from 'twikoo';
+  
+  twikoo.init({
+    envId: 'YOUR_ENVIRONMENT_ID', // 腾讯云环境填 envId；Vercel 环境填地址（https://xxx.vercel.app）
+    el: '#twikoo',
+    lang: 'zh-CN',
+    path: window.location.pathname,
+  });
+</script> 

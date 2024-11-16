@@ -1,0 +1,106 @@
+---
+import { siteConfig } from '@config/site';
+---
+
+<div class="relative h-screen flex items-center justify-center overflow-hidden">
+  <!-- 视频背景 -->
+  <div class="absolute inset-0 w-full h-full">
+    <video
+      class="absolute inset-0 w-full h-full object-cover"
+      autoplay
+      loop
+      muted
+      playsinline
+    >
+      <source src="/video/240654_small.mp4" type="video/mp4" />
+    </video>
+    <!-- 叠加渐变效果 -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/70 dark:from-black/50 dark:via-black/70 dark:to-black/90"></div>
+  </div>
+
+  <!-- 主要内容 -->
+  <div class="relative z-20 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto mt-16">
+    <h1 
+      class="text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-6 opacity-0 translate-y-8"
+      x-intersect="$el.classList.add('animate-fade-in-up')"
+    >
+      <span class="block">{siteConfig.name}</span>
+      <span class="block text-3xl sm:text-4xl md:text-5xl mt-4 text-gray-200">
+        {siteConfig.description}
+      </span>
+    </h1>
+    <p 
+      class="max-w-2xl mx-auto text-xl text-gray-300 opacity-0"
+      x-intersect="$el.classList.add('animate-fade-in')"
+    >
+      探索、创造、分享。让我们一起开启这段旅程。
+    </p>
+    <div 
+      class="mt-10 opacity-0"
+      x-intersect="$el.classList.add('animate-fade-in')"
+    >
+      <a
+        href="#latest-posts"
+        class="inline-flex items-center px-8 py-4 border-2 border-white text-lg font-medium rounded-full text-white hover:bg-white hover:text-gray-900 dark:hover:text-gray-900 transition-all duration-300"
+      >
+        开始阅读
+        <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- 滚动提示 -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+    <div class="animate-bounce">
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<style>
+  .animate-fade-in-up {
+    animation: fadeInUp 1s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 0.3s;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* 平滑滚动 */
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
+
+<script>
+  document.querySelector('a[href="#latest-posts"]')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector('#latest-posts');
+    target?.scrollIntoView({ behavior: 'smooth' });
+  });
+</script> 

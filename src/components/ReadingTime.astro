@@ -1,0 +1,16 @@
+---
+interface Props {
+  content: string;
+}
+
+const { content } = Astro.props;
+
+// 估算阅读时间（假设每分钟阅读300字）
+const wordsPerMinute = 300;
+const wordCount = content.trim().split(/\s+/g).length;
+const readingTime = Math.ceil(wordCount / wordsPerMinute);
+---
+
+<span class="text-sm text-gray-500 dark:text-gray-400">
+  预计阅读时间：{readingTime} 分钟
+</span> 

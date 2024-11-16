@@ -1,0 +1,40 @@
+---
+interface Props {
+  theme?: 'github-light' | 'github-dark';
+}
+
+const { theme = 'github-light' } = Astro.props;
+---
+
+<div class="utterances-container"></div>
+
+<script define:vars={{ theme }}>
+  const script = document.createElement('script');
+  script.src = 'https://utteranc.es/client.js';
+  script.setAttribute('repo', 'chovYena/blog');
+  script.setAttribute('issue-term', 'pathname');
+  script.setAttribute('label', 'comment');
+  script.setAttribute('theme', theme);
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+
+  const container = document.querySelector('.utterances-container');
+  if (container) {
+    container.appendChild(script);
+  }
+
+  // 监听主题变化
+  document.addEventListener('alpine:init', () => {
+    Alpine.effect(() => {
+      const isDark = Alpine.store('theme').isDark;
+      const utterancesFrame = document.querySelector('.utterances-frame');
+      if (utterancesFrame) {
+        const theme = isDark ? 'github-dark' : 'github-light';
+        utterancesFrame.contentWindow.postMessage({
+          type: 'set-theme',
+          theme: theme
+        }, 'https://utteranc.es');
+      }
+    });
+  });
+</script> 

@@ -1,0 +1,32 @@
+---
+interface Props {
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { headings } = Astro.props;
+---
+
+<nav class="toc">
+  <h2 class="text-lg font-semibold mb-4">目录</h2>
+  <ul class="space-y-2">
+    {headings.map((heading) => (
+      <li class={`pl-${(heading.depth - 1) * 4}`}>
+        <a
+          href={`#${heading.slug}`}
+          class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-sky-400"
+        >
+          {heading.text}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .toc {
+    position: sticky;
+    top: 6rem;
+    max-height: calc(100vh - 8rem);
+    overflow-y: auto;
+  }
+</style> 

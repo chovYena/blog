@@ -1,0 +1,104 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = "h-8" } = Astro.props;
+---
+
+<svg class={className} viewBox="0 0 200 60" fill="currentColor">
+  <!-- 背景装饰 -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:currentColor;stop-opacity:0.1" />
+      <stop offset="50%" style="stop-color:currentColor;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:currentColor;stop-opacity:0.1" />
+    </linearGradient>
+  </defs>
+
+  <!-- 主文字 -->
+  <text 
+    x="50%" 
+    y="50%" 
+    font-family="'Cormorant Garamond', serif" 
+    font-size="48"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    font-weight="600"
+    letter-spacing="4"
+    class="text-shadow"
+  >
+    Yena
+  </text>
+
+  <!-- 装饰线条 -->
+  <path 
+    d="M45 45 C 80 45, 120 45, 155 45" 
+    stroke="currentColor" 
+    stroke-width="1.5"
+    stroke-linecap="round"
+    fill="none"
+    class="decoration-line"
+  />
+
+  <!-- 装饰点 -->
+  <circle cx="40" cy="45" r="2" class="decoration-dot" />
+  <circle cx="160" cy="45" r="2" class="decoration-dot" />
+</svg>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap');
+
+  .decoration-line {
+    opacity: 0.6;
+    stroke-dasharray: 120;
+    stroke-dashoffset: 120;
+    animation: draw 1s ease forwards;
+  }
+
+  .decoration-dot {
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards 1s;
+  }
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 0.6;
+    }
+  }
+
+  /* 悬停效果 */
+  svg:hover .decoration-line {
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  svg:hover .decoration-dot {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 1;
+    }
+  }
+</style> 

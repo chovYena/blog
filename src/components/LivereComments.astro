@@ -1,0 +1,28 @@
+---
+---
+
+<div id="lv-container" data-id="city" data-uid="YOUR_LIVERE_UID">
+  <script is:inline>
+    (function(d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
+      if (typeof LivereTower === 'function') { return; }
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+</div>
+
+<style>
+  #lv-container {
+    margin-top: 2rem;
+  }
+
+  /* 暗色模式样式 */
+  :global(.dark) #lv-container {
+    --livere-bg-color: #1f2937;
+    --livere-text-color: #e5e7eb;
+    --livere-border-color: #374151;
+  }
+</style> 

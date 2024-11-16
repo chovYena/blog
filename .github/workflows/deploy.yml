@@ -1,0 +1,32 @@
+name: Deploy to GitHub Pages
+
+on:
+  # 每次推送到 main 分支时触发部署
+  push:
+    branches: [ main ]
+  # 允许手动触发部署
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build website
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist # Astro 构建输出目录
+          branch: gh-pages # 部署到 gh-pages 分支 

@@ -1,0 +1,25 @@
+---
+interface Props {
+  url: string;
+  title: string;
+}
+
+const { url, title } = Astro.props;
+const encodedUrl = encodeURIComponent(url);
+const encodedTitle = encodeURIComponent(title);
+---
+
+<div class="flex space-x-4">
+  <button
+    onclick={`window.open('https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}', '_blank')`}
+    class="text-gray-600 dark:text-gray-400 hover:text-blue-500"
+  >
+    分享到 Twitter
+  </button>
+  <button
+    onclick={`window.open('https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}', '_blank')`}
+    class="text-gray-600 dark:text-gray-400 hover:text-blue-600"
+  >
+    分享到 Facebook
+  </button>
+</div> 

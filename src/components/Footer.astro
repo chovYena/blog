@@ -1,0 +1,19 @@
+---
+import { siteConfig } from '@config/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-white dark:bg-gray-900 mt-auto">
+  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="mt-8 border-t border-gray-200 dark:border-gray-800 pt-8">
+      <div class="flex justify-center space-x-6 mb-4">
+        <a href={siteConfig.social.github} class="text-gray-400 hover:text-gray-500 dark:text-gray-300 dark:hover:text-white transition-colors">
+          GitHub
+        </a>
+      </div>
+      <p class="text-center text-base text-gray-400 dark:text-gray-300">
+        &copy; {year} {siteConfig.name}. {siteConfig.copyright}
+      </p>
+    </div>
+  </div>
+</footer> 

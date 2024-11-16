@@ -1,0 +1,31 @@
+---
+interface Props {
+  pageTitle: string;
+  pageUrl: string;
+}
+
+const { pageTitle, pageUrl } = Astro.props;
+---
+
+<div id="disqus_thread"></div>
+
+<script define:vars={{ pageTitle, pageUrl }}>
+  var disqus_config = function () {
+    this.page.url = pageUrl;
+    this.page.identifier = pageUrl;
+    this.page.title = pageTitle;
+  };
+  
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://yena-blog.disqus.com';  // 替换成你的 Disqus shortname
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+<style>
+  #disqus_thread {
+    margin-top: 2rem;
+  }
+</style> 
